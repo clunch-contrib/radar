@@ -1,0 +1,33 @@
+{
+  "name": "@clunch/radar",
+  "version": "0.1.0",
+  "description": "雷达图组件，包括提示文字等的雷达图。",
+  "main": "index.js",
+  "scripts": {
+    "test": "webpack-dev-server --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clunch-contrib/radar.git"
+  },
+  "keywords": [
+    "clunch",
+    "contrib",
+    "radar"
+  ],
+  "author": "你好2007",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clunch-contrib/radar/issues"
+  },
+  "homepage": "https://github.com/clunch-contrib/radar#readme",
+  "dependencies": {
+    "@hai2007/tool": "^0.8.2"
+  },
+  "devDependencies": {
+    "clunch": "^1.7.5",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
