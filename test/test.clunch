@@ -1,1 +1,1 @@
-<ui-radar c-on:click='doit' />
+<ui-radar c-on:click='doit' c-bind:indicator='indicator' c-bind:data='data'/>
