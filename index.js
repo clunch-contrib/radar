@@ -11,7 +11,7 @@ var initConfig = function (attr, that) {
 
 };
 
-export default ["number", "json", "$rotate", function ($number, $json, $rotate) {
+export default ["number", "json", "$rotate", "$getLoopColors", function ($number, $json, $rotate, $getLoopColors) {
     return {
         attrs: {
             // 圆心和半径
@@ -25,6 +25,23 @@ export default ["number", "json", "$rotate", function ($number, $json, $rotate) 
             // 数据
             data: $json()
 
+        },
+        region: {
+            default: function (render, attr) {
+                initConfig(attr, this);
+
+                var i, j, dot, painter, deg = Math.PI * 2 / attr.indicator.length;
+
+                for (j = 0; j < attr.data.length; j++) {
+                    painter = render(j, attr.data[j]).beginPath();
+                    for (i = 0; i < attr.indicator.length; i++) {
+                        dot = $rotate(attr.cx, attr.cy, deg * i, attr.cx, attr.cy - attr.data[j].value[i] / attr.indicator[i].max * attr.radius);
+                        painter.lineTo(dot[0], dot[1]);
+                    }
+                    painter.closePath().full();
+                }
+
+            }
         },
         link: function (painter, attr) {
             initConfig(attr, this);
@@ -77,7 +94,19 @@ export default ["number", "json", "$rotate", function ($number, $json, $rotate) 
             }
 
             // 绘制数据
-
+            var colors = $getLoopColors(attr.data.length);
+            var colorsAlpha = $getLoopColors(attr.data.length, 0.7);
+            for (j = 0; j < attr.data.length; j++) {
+                painter.config({
+                    strokeStyle: colors[j],
+                    fillStyle: colorsAlpha[j]
+                }).beginPath();
+                for (i = 0; i < attr.indicator.length; i++) {
+                    dot = $rotate(attr.cx, attr.cy, deg * i, attr.cx, attr.cy - attr.data[j].value[i] / attr.indicator[i].max * attr.radius);
+                    painter.lineTo(dot[0], dot[1]);
+                }
+                painter.closePath().full();
+            }
 
         }
     };
